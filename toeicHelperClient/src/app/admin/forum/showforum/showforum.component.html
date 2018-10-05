@@ -1,0 +1,107 @@
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Forum List
+          <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-dashboard"></i> Home</a>
+          </li>
+          <li class="active">Forum</li>
+        </ol>
+      </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <a routerLink="../create" class="btn">Create New Forum</a>
+          <div class="box">
+
+            <div class="box-header">
+              <h3 class="box-title">Forum List</h3>
+            </div>
+            <!-- /.box-header -->
+
+            <div class="box-body">
+              <table class="table table-bordered table-striped">
+                <thead style="background: lightblue">
+                  <tr>
+                    <th class="col-md-7">Room</th>
+                    <th class="col-md-1">Comment</th>
+                    <th class="col-md-1 tb-title">Status</th>
+                    <th class="col-md-2 tb-title">Date Post</th>
+                    <th class="col-md-1 tb-title">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+
+                    <td><a style="cursor: pointer;">{{item.name}}</a></td>
+                    <td class="tb-title">{{item.comment.length}}</td>
+                    <td class="tb-title">
+                      <span *ngIf="checkOpening(item) == true" style="color: dodgerblue">{{item.status}}</span>
+                      <span *ngIf="checkActive(item) == true" style="color: lime">{{item.status}}</span>
+                      <span *ngIf="checkStatus(item) == true" style="color: goldenrod">{{item.status}}</span>
+                    </td>
+                    <td class="tb-title">
+                      {{item.datePost | date:'medium'}}
+                    </td>
+                    <td class="tb-title">
+                        <a style="margin-right: 10px;" routerLink="../edit/{{item.roomID}}">
+                          <span class="fa fa-pencil"></span>
+                        </a>
+                        <a (click)="deleteRoom(item)">
+                          <span class="fa fa-trash-o"></span>
+                        </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="pager.totalItems <= 0">
+                    <td colspan="5" style="text-align: center;">No data available in table.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row">
+                  <div class="col-sm-5">
+                    <div class="tableInfo">Showing {{pager.startIndex<0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">First</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                      </li>
+                      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Last</a>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box-box -->
+        </div>
+
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+</div>

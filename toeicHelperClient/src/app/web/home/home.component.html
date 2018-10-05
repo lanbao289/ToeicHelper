@@ -1,0 +1,55 @@
+<app-nvarbar></app-nvarbar>
+<div id="body-content">
+  <div class="panel-login">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <form id="register-form" (ngSubmit)="updateUser()" role="form">
+            <h2 style="text-align: center;">MY PROFILE</h2>
+            <div class="form-group">
+              <input type="text" name="username" tabindex="1" class="form-control" placeholder="Username" [(ngModel)]="user.username" #username="ngModel"
+                readonly>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.email }">
+              <input type="email" name="email" tabindex="1" class="form-control" placeholder="Email Address" [(ngModel)]="newEmail" #email="ngModel">
+              <div class="help-block with-errors" *ngIf="!valid.email">
+                {{message.email}}
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.oldPassword }">
+              <input type="password" name="password" tabindex="2" class="form-control" placeholder="Password" [(ngModel)]="oldPass">
+              <div class="help-block with-errors" *ngIf="!valid.oldPassword">
+                {{message.oldPassword}}
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.newPassword }">
+              <input type="password" name="new-password" tabindex="2" class="form-control" placeholder="New Password" [(ngModel)]="newPass">
+              <div class="help-block with-errors" *ngIf="!valid.newPassword">
+                {{message.newPassword}}
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.cfnewPassword }">
+              <input type="password" name="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" [(ngModel)]="cfnewPass">
+              <div class="help-block with-errors" *ngIf="!valid.cfnewPassword">
+                {{message.cfnewPassword}}
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                  <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Edit Profile">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="slideshow">
+  <img class="active" src="../../../assets/slider/lifestyle-learning-english-online-white-wooden-table-background-top-view-flags-tablet-90070766.jpg"
+    alt="Slideshow Image 1" />
+</div>
+

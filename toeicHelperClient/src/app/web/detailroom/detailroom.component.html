@@ -1,0 +1,74 @@
+<div class="contentforum">
+    <app-nvarbar></app-nvarbar>
+
+    <div style="text-align: center;margin: 40px 0">
+        <h1>{{room.name}}</h1>
+    </div>
+    
+    <!-- block each post of user and comment -->
+
+    <div class="block-post">
+        <div class="user-post">
+          <h3>{{room.username}}</h3>
+          <h4>Post owner</h4>
+          <i class="fa fa-user-circle" style="font-size:85px;"></i>
+        </div>
+        <div class="content-post">
+          <div class="content-ps">
+            <p class="post-title">{{room.name}}</p>
+            <h6>{{room.datePost | date:'short'}}</h6>
+            <div style="margin-left: 7px">{{room.post}}</div>
+           <!-- <img src="../../../assets/slider/mac.jpg"> -->
+          </div>
+          <hr class="style-hr">
+        </div>
+        <button style="float: right;" *ngIf="room.username == currentUser.username" type="button" class="btn btn-primary" (click)="updateStatus(room.roomID)">
+            Resolved
+        </button><br>
+    </div><br>
+   
+    <div *ngFor="let comment of comments">
+        <div class="comment-user">
+            <div class="user-comment">
+                <h3>{{comment.username}}</h3>
+                <h4>Posts: {{getCountPosts(comment.username)}}</h4>
+                <i class="fa fa-user-circle" style="font-size:80px;"></i>
+            </div>
+            <div style="background-color: white;width: 800px;float: left;height: 230px;">
+                <div class="vote-comment">
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="submit" (click)="removeVoteAgree(currentUser,room.roomID,comment)" *ngIf="checkUserVoteAgree(comment.vote,currentUser) == true" style="color: green">
+                                    <span class="fa fa-thumbs-o-up"></span>
+                                </button>
+                                <button type="submit" (click)="addVoteAgree(currentUser,room.roomID,comment)" *ngIf="checkUserVoteAgree(comment.vote,currentUser) == false">
+                                    <span class="fa fa-thumbs-o-up"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{countVoteWithAgree(comment.vote)}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <p class="comment-title">Reply: {{room.name}}</p> 
+                <p class="content-comment">{{comment.content}}</p>
+            </div>
+        </div>
+    </div>
+    <form role="form" (ngSubmit)="addComment(currentUser,room.roomID)" *ngIf="currentUser.username != room.username">
+        <div class="comment" [ngClass]="{ 'has-error': !valid.content }">
+            <div class="block-comment">   
+                <div id='editor' name="content" [froalaEditor] [(froalaModel)]="com.content"></div>
+            </div>
+            <div class="help-block with-errors" *ngIf="!valid.content">
+                {{message.content}}
+            </div>
+            <br>
+            <button style="float: right" type="submit" class="btn btn-primary">Comment</button>
+        </div>
+    </form>
+    
+</div>
+<app-footer></app-footer>

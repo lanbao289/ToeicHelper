@@ -1,0 +1,475 @@
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Exam
+        <small>Edit exam</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Exam</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label>Exam ID</label>
+                  <input style="background: white;" type="text" class="form-control" name="examID" placeholder="Enter exam ID" [(ngModel)]="exam.examID"
+                    #examID="ngModel" readonly="readonly">
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+
+      <div class="row">
+        <!-- PART 1-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart1 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 1
+                <span *ngIf="!isPart1">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form (submit)="upload(1)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart1 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart1">
+                    <a [href]="part1pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input id="pdfpart1" type="file" (change)="selectFilePart1($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart1">
+                    {{message.pdfPart1}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.mp3Part1 }">
+                  <label>MP3 FILE</label>
+                  <span *ngIf="isPart1">
+                    <a [href]="part1mp3src" target="_blank">
+                      <i class="fa fa-file-audio-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectMp3FilePart1($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.mp3Part1">
+                    {{message.mp3Part1}}
+                  </div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart1 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(1)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart1" rows="3" maxlength="10" placeholder="Please insert answer for question from 1 to 10."
+                    [(ngModel)]="answerPart1"></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart1">
+                    {{message.answerPart1}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <!-- PART 2-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart2 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 2
+                <span *ngIf="!isPart2">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form (submit)="upload(2)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart2 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart2">
+                    <a [href]="part2pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart2($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart2">
+                    {{message.pdfPart2}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.mp3Part2 }">
+                  <label>MP3 FILE</label>
+                  <span *ngIf="isPart2">
+                    <a [href]="part2mp3src" target="_blank">
+                      <i class="fa fa-file-audio-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectMp3FilePart2($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.mp3Part2">
+                    {{message.mp3Part2}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart2 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(2)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart2" rows="3" maxlength="30" placeholder="Please insert answer for question from 11 to 40."
+                    [(ngModel)]="answerPart2"></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart2">
+                    {{message.answerPart2}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+
+      <div class="row">
+        <!-- PART 3-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart3 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 3
+                <span *ngIf="!isPart3">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="upload(3)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart3 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart3">
+                    <a [href]="part3pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart3($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart3">
+                    {{message.pdfPart3}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.mp3Part3 }">
+                  <label>MP3 FILE</label>
+                  <span *ngIf="isPart3">
+                    <a [href]="part3mp3src" target="_blank">
+                      <i class="fa fa-file-audio-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectMp3FilePart3($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.mp3Part3">
+                    {{message.mp3Part3}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart3 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(3)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart3" [(ngModel)]="answerPart3" maxlength="30" rows="3" placeholder="Please insert answer for question from 41 to 70."></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart3">
+                    {{message.answerPart3}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <!-- PART 4-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart4 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 4
+                <span *ngIf="!isPart4">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="upload(4)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart4 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart4">
+                    <a [href]="part4pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart4($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart4">
+                    {{message.pdfPart4}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.mp3Part4 }">
+                  <label>MP3 FILE</label>
+                  <span *ngIf="isPart4">
+                    <a [href]="part4mp3src" target="_blank">
+                      <i class="fa fa-file-audio-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectMp3FilePart4($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.mp3Part4">
+                    {{message.mp3Part4}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart4 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(4)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart4" [(ngModel)]="answerPart4" maxlength="30" rows="3" placeholder="Please insert answer for question from 71 to 100."></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart4">
+                    {{message.answerPart4}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- PART 5-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart5 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 5
+                <span *ngIf="!isPart5">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="upload(5)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart5 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart5">
+                    <a [href]="part5pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart5($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart5">
+                    {{message.pdfPart5}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart5 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(5)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart5" [(ngModel)]="answerPart5" maxlength="40" rows="3" placeholder="Please insert answer for question from 101 to 140."></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart5">
+                    {{message.answerPart5}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <!-- PART 6-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart6 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 6
+                <span *ngIf="!isPart6">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="upload(6)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart6 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart6">
+                    <a [href]="part6pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart6($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart6">
+                    {{message.pdfPart6}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart6 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(6)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart6" [(ngModel)]="answerPart6" maxlength="12" rows="3" placeholder="Please insert answer for question from 141 to 152."></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart6">
+                    {{message.answerPart6}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- PART 7-->
+        <div class="col-md-6">
+          <div class="box box-primary" [ngClass]="{ 'box-error': !isPart7 }">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Part 7
+                <span *ngIf="!isPart7">
+                  <i class="fa fa-exclamation-triangle" style="color: #caca2b;"></i>
+                </span>
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="upload(7)">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.pdfPart7 }">
+                  <label>PDF FILE</label>
+                  <span *ngIf="isPart7">
+                    <a [href]="part7pdfsrc" target="_blank">
+                      <i class="fa fa-file-pdf-o"></i>
+                    </a>
+                  </span>
+                  <input type="file" (change)="selectFilePart7($event)">
+
+                  <div class="help-block with-errors" *ngIf="!valid.pdfPart7">
+                    {{message.pdfPart7}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.answerPart7 }">
+                  <label>Answer</label>
+                  <button type="button" data-toggle="modal" data-target="#myModal" (click)="showAnswer(7)">
+                    <i class="fa fa-list-alt"></i>
+                  </button>
+                  <textarea class="form-control" name="answerPart7" [(ngModel)]="answerPart7" maxlength="48" rows="3" placeholder="Please insert answer for question from 153 to 200."></textarea>
+                  <div class="help-block with-errors" *ngIf="!valid.answerPart7">
+                    {{message.answerPart7}}
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Users Register</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ans of answerParts; let i = index" [attr.data-index]="i">
+                <td>{{ans.questionOrder}}</td>
+                <td>
+                  <input type="text" name="{{ans.questionOrder}}" [(ngModel)]="ans.answer" (change)="answerChange(ans.partID)" maxlength="1">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

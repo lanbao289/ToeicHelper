@@ -1,0 +1,234 @@
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Room List
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Room</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-xs-12">
+          <a routerLink="../create" class="btn">Create New Room</a>
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Room List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>roomID</th>
+                    <th>examID</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                    <th>Registered users</th>
+                    <th>Joined users</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+                    <td>{{pager.currentPage==1?i+1:(pager.currentPage-1)+""+(i+1)}}</td>
+                    <td>{{item.roomID}}</td>
+                    <td>{{item.examID}}</td>
+                    <td>{{item.startTime | date:'medium'}}</td>
+                    <td [ngClass]="{expired: item.status === 'Test session is expired'}">{{item.status}}</td>
+                    <td>
+                      <button type="button" data-toggle="modal" data-target="#myModal" (click)="showUserList(item.userRegisteredList)">
+                        <i class="fa fa-list-alt"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" data-toggle="modal" data-target="#myModal1" (click)="showUserList(item.userJoinedList)">
+                        <i class="fa fa-list-alt"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <i style="margin-right: 10px;" data-toggle="modal" data-target="#myModal2" (click)="showResultList(item.roomID)" class="fa fa-list-alt" *ngIf="item.status === 'Test session is expired'">
+                      </i>
+                      <a style="margin-right: 10px;" *ngIf="item.status === 'Test session has not started yet'" routerLink="../edit/{{item.roomID}}">
+                        <span class="fa fa-pencil"></span>
+                      </a>
+                      <a style="margin-right: 10px;" *ngIf="item.status !== 'Test session has started'" (click)="deleteTestRoom(item)">
+                        <span class="fa fa-trash-o"></span>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="pager.totalItems <= 0">
+                    <td colspan="8" style="text-align: center;">No data available in table.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="tableInfo">Showing {{pager.startIndex
+                    <0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">First</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                      </li>
+                      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Last</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          </div>
+        </div>
+
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Users Register</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered table-striped" *ngIf="userList.length > 0">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of userList; let i = index" [attr.data-index]="i">
+                  <td>{{i+1}}</td>
+                  <td>{{user.username}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="userList.length <= 0" style="color: black; text-align: center;">There are no users to join this session</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal 1 -->
+    <div class="modal fade" id="myModal1" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Users Joined</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered table-striped" *ngIf="userList.length > 0">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of userList; let i = index" [attr.data-index]="i">
+                  <td>{{i+1}}</td>
+                  <td>{{user.username}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="userList.length <= 0" style="color: black; text-align: center;">There are no users to join this session</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="myModal2" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Test Result</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered table-striped" *ngIf="testResultList.length > 0">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Username</th>
+                  <th>RoomID</th>
+                  <th>ExamID</th>
+                  <th>Reading Correct</th>
+                  <th>Listening Correct</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let result of testResultList; let i = index" [attr.data-index]="i">
+                  <td>{{i+1}}</td>
+                  <td>{{result.username}}</td>
+                  <td>{{result.roomID}}</td>
+                  <td>{{result.examID}}</td>
+                  <td>{{result.readCorrect}}</td>
+                  <td>{{result.listenCorrect}}</td>
+                  <td>{{result.testScore}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="testResultList.length <= 0" style="color: black; text-align: center;">There are no results in this session</p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="action" class="btn btn-primary pull-left" (click)="exportPDF()">
+              <i class="fa fa-download"> Export results to PDF</i>
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

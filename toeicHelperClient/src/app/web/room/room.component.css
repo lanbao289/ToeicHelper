@@ -1,0 +1,18 @@
+.show {
+  display: inline !important;
+}
+
+.content-wrapper {
+  margin-left: 0px !important;
+}
+
+.point {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+.totalPoint{
+  width: 70px;
+  font-size: 30px;
+  text-align: center;
+}

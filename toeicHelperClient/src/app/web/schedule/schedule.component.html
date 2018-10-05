@@ -1,0 +1,107 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+
+  <div class="gdlr-page-title-wrapper">
+    <div class="gdlr-page-title-container">
+      <h1 class="gdlr-page-title">TOEIC TESTS – SCHEDULE</h1>
+    </div>
+  </div>
+
+  <div class="content-wrapperWeb">
+    <div class="gdlr-item gdlr-content-item">
+      <div class="box-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>roomID</th>
+              <th>Start Date</th>
+              <th>Registered users</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+              <td>{{pager.currentPage==1?i+1:(pager.currentPage-1)+""+(i+1)}}</td>
+              <td>{{item.roomID}}</td>
+              <td>{{item.startTime | date:'medium'}}</td>
+              <td>
+                <button type="button" data-toggle="modal" data-target="#myModal" (click)="showUserList(item.userRegisteredList)">
+                  <i class="fa fa-list-alt"></i>
+                </button>
+              </td>
+              <td [ngClass]="{expired: item.status === 'Test session is expired'}">{{item.status}}</td>
+              <td>
+                <a *ngIf="!item.isRegister" (click)="register(item)" class="btn" style="background-color: #2d3b55; color: white;">Register</a>
+                <a *ngIf="item.isJoin" (click)="startRoom(item)" class="btn" style="background-color: #2d3b55; color: white;">Join</a>
+              </td>
+            </tr>
+            <tr *ngIf="pager.totalItems <= 0">
+              <td colspan="6" style="text-align: center;">No data available in table.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="tableInfo">Showing {{pager.startIndex<0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+          </div>
+          <div class="col-sm-7">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+              <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">First</a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+              </li>
+              <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Next</a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Last</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Users Register</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" *ngIf="userList.length > 0">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of userList; let i = index" [attr.data-index]="i">
+                <td>{{i+1}}</td>
+                <td>{{user.username}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="userList.length <= 0" style="color: black; text-align: center;">There are no users to join this session</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

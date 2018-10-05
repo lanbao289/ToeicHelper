@@ -1,0 +1,40 @@
+<div class="contentforum">
+    <app-nvarbar></app-nvarbar><br>
+
+    <div class="container">
+        <form role="form" (ngSubmit)="addRoom(currentUser)" style="width: 1100px;">
+
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.roomID }">
+                <label for="roomID">RoomID:</label>
+                <input type="text" class="form-control" name="roomID" placeholder="Enter ID" [(ngModel)]="room.roomID"
+                    #roomID="ngModel">
+                <div class="help-block with-errors" *ngIf="!valid.roomID">
+                    {{message.roomID}}
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.name }">
+                <label for="name">Subject:</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter subject" [(ngModel)]="room.name"
+                    #name="ngModel">
+                <div class="help-block with-errors" *ngIf="!valid.name">
+                    {{message.name}}
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': !valid.post }">
+                <label for="post">Post:</label>
+                
+                <div id='editor' name="post" [froalaEditor] [(froalaModel)]="room.post"></div>
+                <div class="help-block with-errors" *ngIf="!valid.post">
+                    {{message.post}}
+                </div>
+            </div>
+            <div style="text-align: left">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>

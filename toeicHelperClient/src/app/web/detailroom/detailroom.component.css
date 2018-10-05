@@ -1,0 +1,126 @@
+.content-comment {
+    margin: -15px 30px;
+    color: black;
+    max-height: auto;
+}
+
+.comment-title {
+    margin: 0;
+    padding: 20px 20px;
+    word-wrap: break-word;
+    color: #1e1e1e;
+    height: auto;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.post-title {
+    margin-left: 1px;
+    margin-bottom: -5px;
+    word-wrap: break-word;
+    color: #1e1e1e;
+    height: auto;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-post {
+    background-color: #E3E3E3;
+    width: 300px;
+    float: left;
+    min-height: 280px;
+    max-height:1000px;
+    text-align: center;
+}
+
+.user-comment {
+    background: #E3E3E3;
+    width: 300px;
+    float: left;
+    height: 230px;
+    text-align: center;
+}
+
+.block-post {
+    margin-bottom: 20px;
+    width: 950;
+    min-height: 280px;
+    max-height:1000px;
+    position: relative;
+    border-radius: 3px;
+}
+
+.comment-user {
+    width: 1100px;
+    height: 230px;
+    margin-bottom: 20px;
+    max-height: 500px;
+}
+
+.contentforum {
+    width: 1100px;
+    margin: 0 auto;
+    min-height: 600px;
+}
+  
+.content-post{
+    background: #EBF4F9;
+    width: 800px;
+    float: left;
+    min-height: 280px;
+    max-height:1000px;
+    margin-bottom: 6px;
+}
+  
+.content-ps{
+    margin: 0;
+    padding: 10px 20px;
+    word-wrap: break-word;
+    color: #1e1e1e;
+    height: auto;
+    font-size: 17px;
+}
+
+.vote-comment {
+    float: right;
+    margin: 0;
+    padding: 10px;
+}
+
+table tr td{
+    border-style:none;
+    text-align: center;
+}
+
+.style-hr {
+    align-content: center; width: 760px;margin-top: 0;border-top: 1px solid #77a4d1;display: block;height: 1px;
+}
+
+.block-comment {
+    background-color: white;
+}
+
+.comment {
+    height: 400px;
+}
+
+h6 {
+    margin-left: 2px;
+    margin-bottom: 18px;
+    margin-top: -2px;
+}
+
+#one-true { overflow: hidden; }
+#one-true .col {
+  width: 27%;
+  padding: 30px 3.15% 0;
+  float: left;
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+#one-true .col:nth-child(1) { margin-left: 33.3%; background: #ccc; }
+#one-true .col:nth-child(2) { margin-left: -66.3%; background: #eee; }
+#one-true .col:nth-child(3) { left: 0; background: #eee; }
+#one-true p { margin-bottom: 30px; }
+#page-wrap { width: 80%; margin: 60px auto; }
+#page-wrap > div { margin: 0 0 50px 0; min-width: 500px; width: 100%; }

@@ -1,0 +1,83 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+
+  <div class="gdlr-page-title-wrapper-forum">
+
+    <a style="font-size:20px" routerLink="/adding-post">Create room</a>
+
+    <div class="gdlr-page-title-container" style="margin-top: 30px">
+      <h1 class="gdlr-page-title" style="color: red">FORUM DISCUSSION</h1>
+    </div>
+    <div class="input-group" style="width: 500px; margin-right: auto; margin-left: auto;">
+      <input type="text" name="name" class="form-control" placeholder="Search..." [(ngModel)]="room.name" #name="ngModel">
+      <span class="input-group-btn">
+        <button type="submit" name="search" id="search-btn" class="btn btn-flat" (click)="searchRoom()">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  
+  <div class="content-wrapperWeb">
+    <div class="gdlr-item gdlr-content-item">
+      <div class="box-body">
+        <table class="table table-bordered">
+          <thead style="background: lightblue">
+            <tr>
+              <th class="col-md-7">Room</th>
+              <th class="col-md-1">Comment</th>
+              <th class="col-md-2 tb-title">Status</th>
+              <th class="col-md-2 tb-title">Date Post</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+
+              <td><a style="cursor: pointer;" (click)="joinRoom(currentUser.username,item.username,item.roomID)">{{item.name}}</a></td>
+              <td class="tb-title">{{item.comment.length}}</td>
+              <td class="tb-title">
+                <span *ngIf="checkOpening(item) == true" style="color: dodgerblue">{{item.status}}</span>
+                <span *ngIf="checkActive(item) == true" style="color: lime">{{item.status}}</span>
+                <span *ngIf="checkStatus(item) == true" style="color: goldenrod">{{item.status}}</span>
+              </td>
+              <td class="tb-title">
+                {{item.datePost | date:'medium'}}
+              </td>
+            </tr>
+            <tr *ngIf="pager.totalItems <= 0">
+              <td colspan="5" style="text-align: center;">No data available in table.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-5">
+              <div class="tableInfo">Showing {{pager.startIndex<0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+            </div>
+            <div class="col-sm-7">
+              <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                  <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

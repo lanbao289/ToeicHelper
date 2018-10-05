@@ -1,0 +1,413 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+  <div *ngIf="!loading">
+    <div class="gdlr-page-title-wrapper">
+      <div class="gdlr-page-title-container">
+        <h1 class="gdlr-page-title">TOEIC TRAINING – FULL TEST</h1>
+      </div>
+    </div>
+
+    <div class="content-wrapperWeb">
+      <div class="gdlr-item gdlr-content-item">
+        <blockquote>
+          <p>The Full Test is apply for the TOEIC Test of APC members (applicable to APC members).</p>
+        </blockquote>
+        <p style="text-align: center">
+          <button (click)="start()" class="gdlr-button small">START TEST</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- START TOEIC FULL TEST CONTENT-->
+  <div *ngIf="loading && !isSubmit">
+    <div class="gdlr-page-title-wrapper">
+      <div class="gdlr-page-title-container">
+        <h1 class="gdlr-page-title">TOEIC TRAINING – FULL TEST</h1>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div id="test-time">{{timeCountdown}}</div>
+
+      <form #answerForm="ngForm" (ngSubmit)="onFormSubmit(answerForm)">
+        <!-- SHOW PART 1 -->
+        <div class="row hidden" [ngClass]="{ 'show': count == 1 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part1.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 1" [src]="part1.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers1">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 2-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 2 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part2.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 2" [src]="part2.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers2">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 3-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 3 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part3.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 3" [src]="part3.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers3">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 4-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 4 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part4.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 4" [src]="part4.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers4">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 5-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 5 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part5.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 5" [src]="part5.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers5">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 6-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 6 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part6.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 6" [src]="part6.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers6">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOW PART 7-->
+        <div class="row hidden" [ngClass]="{ 'show': count == 7 }">
+          <div class="col-md-9">
+            <div class="test-pdf">
+              <div class="part-title">
+                <h3>PART {{part7.partNo}}</h3>
+              </div>
+              <pdf-viewer *ngIf="count == 7" [src]="part7.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-sheet">
+              <div class="form-title">
+                <h4>ANSWER SHEET</h4>
+              </div>
+              <div class="form-answer">
+                <ul>
+                  <li *ngFor="let ans of answers7">
+                    <span class="numAnswer">{{ans.name}}.</span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+                <input type="submit" class="gdlr-button small" value="submit">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="test-page">
+      <ul class="pager">
+        <li>
+          <button *ngIf="prebtn" (click)="prePart()">Previous</button>
+        </li>
+        <li>
+          <button *ngIf="nextbtn" (click)="nextPart()">Next</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="isSubmit">
+    <div class="gdlr-page-title-wrapper">
+      <div class="gdlr-page-title-container">
+        <h1 class="gdlr-page-title">TOEIC TRAINING – RESULT</h1>
+      </div>
+    </div>
+
+    <div class="content-wrapperWeb">
+      <div class="gdlr-item gdlr-content-item">
+        <table class="tb">
+          <tr>
+            <td>
+              <div class="tb-title">
+                <h4>FULL NAME</h4>
+              </div>
+              <div class="tb-content">{{testResult.username}}</div>
+            </td>
+            <td>
+              <div class="tb-label">
+                <span>LISTENING</span>
+              </div>
+              <div class="tb-p">YOUR SCORE</div>
+              <div class="tb-score">
+                <span class="tb-score-icon">
+                  <label class="point">{{testResult.listenPoint}}</label>
+                </span>
+              </div>
+            </td>
+            <td rowspan="2">
+              <div class="tb-total">
+                <span>TOTAL SCORE</span>
+              </div>
+              <div class="tb-total-score">
+                <span class="tb-total-score-icon">
+                  <label class="totalPoint">{{testResult.testScore}}</label>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tb-title">
+                <h4>TEST DATE</h4>
+              </div>
+              <div class="tb-content">{{testResult.dateTest | date:'medium' }}</div>
+            </td>
+            <td>
+              <div class="tb-label">
+                <span>READING</span>
+              </div>
+              <div class="tb-p">YOUR SCORE</div>
+              <div class="tb-score">
+                <span class="tb-score-icon">
+                  <label class="point">{{testResult.readPoint}}</label>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

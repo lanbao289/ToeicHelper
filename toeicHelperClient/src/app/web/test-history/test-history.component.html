@@ -1,0 +1,75 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+
+  <div class="gdlr-page-title-wrapper">
+    <div class="gdlr-page-title-container">
+      <h1 class="gdlr-page-title">TOEIC TESTS – RESULT HISTORY</h1>
+    </div>
+  </div>
+
+  <div class="content-wrapperWeb">
+    <div class="gdlr-item gdlr-content-item">
+      <div class="box-body">
+        <select class="custom-select" style="color: black" name="selectPart" [(ngModel)]="selectOption" (change)="changeResult()">
+          <option value="1">Show result test training</option>
+          <option value="2">Show result test session</option>
+        </select>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Date</th>
+              <th *ngIf="selectOption === '2'">RoomID</th>
+              <th>ExamID</th>
+              <th>Reading Correct</th>
+              <th>Listening Correct</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+              <td>{{pager.currentPage==1?i+1:(pager.currentPage-1)+""+(i+1)}}</td>
+              <td>{{item.dateTest | date:'medium'}}</td>
+              <td *ngIf="selectOption === '2'">{{item.roomID}}</td>
+              <td>{{item.examID}}</td>
+              <td>{{item.readCorrect}}</td>
+              <td>{{item.listenCorrect}}</td>
+              <td>{{item.testScore}}</td>
+            </tr>
+            <tr *ngIf="pager.totalItems <= 0 && selectOption === '1'">
+                <td colspan="6" style="text-align: center;">No data available in table.</td>
+              </tr>
+            <tr *ngIf="pager.totalItems <= 0 && selectOption === '2'">
+              <td colspan="7" style="text-align: center;">No data available in table.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="tableInfo">Showing {{pager.startIndex
+              <0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+            </div>
+            <div class="col-sm-7">
+              <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                  <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

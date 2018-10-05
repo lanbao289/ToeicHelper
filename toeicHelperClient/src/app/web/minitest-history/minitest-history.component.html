@@ -1,0 +1,64 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+
+  <div class="gdlr-page-title-wrapper">
+    <div class="gdlr-page-title-container">
+      <h1 class="gdlr-page-title">TOEIC MINITEST – RESULT HISTORY</h1>
+    </div>
+  </div>
+
+  <div class="content-wrapperWeb">
+    <div class="gdlr-item gdlr-content-item">
+      <div class="box-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Date</th>
+              <th>ExamID</th>
+              <th>Part No</th>
+              <th>Answer Correct / Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+              <td>{{pager.currentPage==1?i+1:(pager.currentPage-1)+""+(i+1)}}</td>
+              <td>{{item.dateTraining | date:'medium'}}</td>
+              <td>{{item.examID}}</td>
+              <td>{{item.partNo}}</td>
+              <td>{{item.answerCorrect}}/{{item.questionTotal}}</td>
+            </tr>
+            <tr *ngIf="pager.totalItems <= 0">
+              <td colspan="5" style="text-align: center;">No data available in table.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="tableInfo">Showing {{pager.startIndex
+              <0?0:(pager.startIndex + 1)}} to {{pager.endIndex + 1}} of {{pager.totalItems}} entries</div>
+            </div>
+            <div class="col-sm-7">
+              <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                  <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                  <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                  <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

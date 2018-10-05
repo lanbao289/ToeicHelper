@@ -1,0 +1,35 @@
+.show {
+  display: inline-block !important;
+}
+
+.point {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.totalPoint {
+  width: 70px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.form-sheet {
+  margin-top: 135px !important;
+}
+
+.fixtop {
+  margin-top: 58px !important;
+}
+
+.gdlr-page-title-wrapper {
+  padding-top: 20px;
+}
+
+audio {
+  width: 900px;
+}
+
+#test-mp3 {
+  margin-left: 65px;
+}

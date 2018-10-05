@@ -1,0 +1,28 @@
+
+.block {
+    margin-bottom: 1rem;
+    background-color: white;
+}
+
+.html {
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #f1f1f1;
+    max-height: 10rem;
+    overflow: auto;
+}
+
+:host app-ngx-editor .ngx-editor-button {
+    width: 5em;
+    height: 5em;
+}
+
+:host app-ngx-editor i {
+    font-size: 1.8em;
+}
+
+:host app-ngx-editor .show-placeholder {
+    font-size: 1.5em;
+}

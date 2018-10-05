@@ -1,0 +1,64 @@
+<div class="hold-transition register-page" style="height: 100vh; padding-top: 1px;">
+  <div class="register-box">
+    <div class="register-logo">
+      <a href="../../index2.html">
+        <b>Admin</b>LTE</a>
+    </div>
+
+    <div class="register-box-body">
+      <h4><p class="login-box-msg">Register a new membership</p></h4>
+
+      <form (ngSubmit)="register()">
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': !valid.username }">
+          <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="newUser.username" #username="ngModel">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div class="help-block with-errors" *ngIf="!valid.username">
+            {{message.username}}
+          </div>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': !valid.email }">
+          <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="newUser.email" #email="ngModel">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <div class="help-block with-errors" *ngIf="!valid.email">
+            {{message.email}}
+          </div>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': !valid.password }">
+          <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="newUser.password" #password="ngModel">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div class="help-block with-errors" *ngIf="!valid.password">
+            {{message.password}}
+          </div>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': !valid.cfpassword }">
+          <input type="password" class="form-control" placeholder="Retype password" name="cfpassword" [(ngModel)]="newUser.cfpassword" #cfpassword="ngModel">
+          <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+          <div class="help-block with-errors" *ngIf="!valid.cfpassword">
+            {{message.cfpassword}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select class="form-control" name="role" [(ngModel)]="newUser.role" #role="ngModel">
+            <option value="ROLE_ADMIN" [selected]>Admin</option>
+            <option value="ROLE_USER">User</option>
+          </select>
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <input type="submit" class="btn btn-primary btn-block btn-flat" value="Register">
+          </div>
+
+          <div class="col-xs-offset-4 col-xs-4 ">
+            <button type="button" (click)="cancel()" class="btn btn-primary btn-block btn-flat">Cancel</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.form-box -->
+  </div>
+</div>
+
+<!-- /.register-box -->

@@ -1,0 +1,75 @@
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+
+    <app-header></app-header>
+  
+    <app-sidebar></app-sidebar>
+  
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Forum
+          <small>Create New Forum</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
+              <i class="fa fa-dashboard"></i> Home</a>
+          </li>
+          <li class="active">Forum</li>
+        </ol>
+      </section>
+  
+      <!-- Main content -->
+      <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Create Forum</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form" (submit)="addRoom(currentUser)">
+                <div class="box-body">
+                  <div class="form-group" [ngClass]="{ 'has-error': !valid.roomID }">
+                    <label>Forum ID</label>
+                    <input type="text" class="form-control" placeholder="Enter Forum ID" [(ngModel)]="room.roomID" name="roomID">
+                    <div class="help-block with-errors" *ngIf="!valid.roomID">
+                      {{message.roomID}}
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'has-error': !valid.name }">
+                    <label for="name">Subject:</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter subject" [(ngModel)]="room.name"
+                        #name="ngModel">
+                    <div class="help-block with-errors" *ngIf="!valid.name">
+                        {{message.name}}
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'has-error': !valid.post }">
+                      <label for="post">Post:</label>
+                      
+                      <div id='editor' name="post" [froalaEditor] [(froalaModel)]="room.post"></div>
+                      <div class="help-block with-errors" *ngIf="!valid.post">
+                          {{message.post}}
+                      </div>
+                  </div>
+                  <div class="box-footer">
+                    <input type="submit" class="btn btn-primary" value="Create">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /.box -->
+          </div>
+        </div>
+        <!-- /.row -->
+  
+      </section>
+      <!-- /.content -->
+    </div>
+  
+  </div>
+  

@@ -1,0 +1,84 @@
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+
+  <app-header></app-header>
+
+  <app-sidebar></app-sidebar>
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Room
+        <small>Create New Room</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> Home</a>
+        </li>
+        <li class="active">Room</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Room</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" (submit)="submitform()">
+              <div class="box-body">
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.roomID }">
+                  <label>Room ID</label>
+                  <input type="text" class="form-control" placeholder="Enter room ID" [(ngModel)]="testRoom.roomID" name="roomID">
+                  <div class="help-block with-errors" *ngIf="!valid.roomID">
+                    {{message.roomID}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.examID }">
+                  <label>Exam</label>
+                  <select class="form-control select2" style="width: 100%;" [(ngModel)]="testRoom.examID" name="examID" #examID="ngModel">
+                    <option *ngFor="let item of listExams;" value="{{item.examID}}" disabled="{{item.error}}">{{item.examID}} <p *ngIf="item.error"> (disabled)</p></option>
+                  </select>
+                  <div class="help-block with-errors" *ngIf="!valid.examID">
+                    {{message.examID}}
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': !valid.startTime }">
+                  <label class="control-label">Start Time</label>
+                  <div id="form_datetime" class="input-group date form_datetime" data-date-format="mm-dd-yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" size="16" id="date" type="text" readonly name="date">
+                    <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </span>
+                    <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
+                  <div class="help-block with-errors" *ngIf="!valid.startTime">
+                    {{message.startTime}}
+                  </div>
+                  <input type="hidden" id="dtp_input1" />
+                  <br/>
+                </div>
+                <div class="box-footer">
+                  <input type="submit" class="btn btn-primary" value="Create">
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+</div>

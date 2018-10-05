@@ -1,0 +1,95 @@
+<div id="contenttest">
+  <app-nvarbar></app-nvarbar>
+
+  <div *ngIf="!isStart">
+    <div class="gdlr-page-title-wrapper">
+      <div class="gdlr-page-title-container">
+        <h1 class="gdlr-page-title">TOEIC TRAINING – MINI TEST</h1>
+      </div>
+    </div>
+
+    <div class="content-wrapperWeb">
+      <div class="gdlr-item gdlr-content-item">
+        <blockquote>
+          <p>The Mini Test is apply for the TOEIC training of APC members (applicable to APC members).</p>
+        </blockquote>
+        <form (ngSubmit)="start()">
+          <p style="text-align: center">
+            <span style="color: black">Please select the part you want to training : </span>
+            <select class="custom-select" style="color: black" name="selectPart" [(ngModel)]="selectPart">
+              <option value="1">Part 1</option>
+              <option value="2">Part 2</option>
+              <option value="3">Part 3</option>
+              <option value="4">Part 4</option>
+              <option value="5">Part 5</option>
+              <option value="6">Part 6</option>
+              <option value="7">Part 7</option>
+            </select>
+            <br>
+            <br>
+            <input type="submit" value="START MINI TEST" class="gdlr-button small">
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isStart">
+    <div class="gdlr-page-title-wrapper">
+      <div class="gdlr-page-title-container">
+        <h1 class="gdlr-page-title">TOEIC TRAINING – MINI TEST</h1>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <br>
+          <div id="test-mp3" *ngIf="isListenPart">
+            <audio controls preload="auto" [src]="part.mp3src"></audio>
+          </div>
+          <div class="test-pdf">
+            <div class="part-title">
+              <h3>PART {{selectPart}}</h3>
+            </div>
+            <pdf-viewer *ngIf="isShowPdf" [src]="part.pdfsrc" [show-all]="true" [render-text]="true" style="display: block; max-height: 1056px; overflow-y: scroll;"></pdf-viewer>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-sheet" [ngClass]="{ 'fixtop': selectPart > 4 }">
+            <div class="form-title">
+              <h4>ANSWER SHEET</h4>
+            </div>
+            <div class="form-answer">
+              <form id="form-answer-submit" #answerForm="ngForm" (ngSubmit)="onFormSubmit(answerForm)">
+                <ul>
+                  <li *ngFor="let ans of answers">
+                    <span class="numAnswer">{{ans.name}}.<span style="color: blue" [ngClass]="{ 'wrong': !ans.isCorrect }"> {{ans.correct}}</span></span>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="A" [attr.disabled]="isSubmit? true : null">
+                      <span class="label-text">A</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="B" [attr.disabled]="isSubmit? true : null">
+                      <span class="label-text">B</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="C" [attr.disabled]="isSubmit? true : null">
+                      <span class="label-text">C</span>
+                    </label>
+                    <label>
+                      <input type="radio" [name]="ans.name" [(ngModel)]="ans.value" value="D" [attr.disabled]="isSubmit? true : null">
+                      <span class="label-text">D</span>
+                    </label>
+                  </li>
+                </ul>
+                <input type="submit" class="gdlr-button small" value="submit" *ngIf="!isSubmit">
+                <button type="button" class="gdlr-button small" (click)="finish()" *ngIf="isSubmit">Finish</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div id="content">
+  <div class="top-navigation-wrapper">
+    <div class="top-navigation-right">
+      <div class="dropdown">
+        <button type="button" class="btn dropdown-toggle btn-user" data-toggle="dropdown">
+          <i class="fa fa-user-circle"></i>
+          <span class="hidden-xs">{{currentUser.username}}</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a routerLink="/admin" routerLinkActive="active"> Admin Page </a>
+          </li>
+          <li>
+            <a routerLink="/" routerLinkActive="active"> Profile </a>
+          </li>
+          <li>
+            <a routerLink="/mypost" routerLinkActive="active"> My Post </a>
+          </li>
+          <li>
+            <a routerLink="/test-history">Full Test result history</a>
+          </li>
+          <li>
+            <a routerLink="/minitest-history">MiniTest result history</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a routerLink="/login" (click)="logoutClicked()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="gdlr-header-inner">
+    <div class="gdlr-header-container container">
+      <div class="gdlr-logo">
+        <a href="#">
+          <img src="../../../assets/logo/logo-tma.png" alt=""> </a>
+      </div>
+      <div class="gdlr-navigation-wrapper">
+        <ul class="nav">
+          <li>
+            <a style="cursor: pointer;" (click)="logoutRoomToHome(currentUser.username)">Home</a>
+          </li>
+          <li>
+            <a style="cursor: pointer;" (click)="logoutRoomToTest(currentUser.username)">Toeic FullTest</a>
+          </li>
+          <li>
+            <a style="cursor: pointer;" (click)="logoutRoomToTraining(currentUser.username)">Toeic MiniTest</a>
+          </li>
+          <li>
+            <a style="cursor: pointer;" (click)="logoutRoomToSchedule(currentUser.username)">Schedule</a>
+          </li>
+          <li>
+            <a style="cursor: pointer;" (click)="logoutRoomToForum(currentUser.username)">Forum</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
